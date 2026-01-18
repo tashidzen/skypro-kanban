@@ -1,35 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// import { useState } from 'react'
+
+import "./App.css";
+import { Main } from "./components/Main/Main.jsx";
+import { Header } from "./components/Header/Header.jsx";
+import { PopBrowse } from "./components/popups/PopBrowse/PopBrowse.jsx";
+import { PopNewCard } from "./components/popups/PopNewCard/PopNewCard.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="wrapper">
+        <div className="pop-exit" id="popExit">
+          <div className="pop-exit__container">
+            <div className="pop-exit__block">
+              <div className="pop-exit__ttl">
+                <h2>Выйти из аккаунта?</h2>
+              </div>
+              <form className="pop-exit__form" id="formExit" action="#">
+                <div className="pop-exit__form-group">
+                  <button className="pop-exit__exit-yes _hover01" id="exitYes">
+                    <a href="modal/signin.html">Да, выйти</a>{" "}
+                  </button>
+                  <button className="pop-exit__exit-no _hover03" id="exitNo">
+                    <a href="main.html">Нет, остаться</a>{" "}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <PopNewCard 
+          activeCategoryClass1={true}
+        />
+        <PopBrowse 
+          nameTask="Название задачи"
+          classTypeColor="_orange"
+          typeCard="Web Design"
+          hiddenStatusClass2={false}
+        />  
+        <Header />
+        <Main />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <script src="js/script.js"></script>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
