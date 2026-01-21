@@ -1,9 +1,9 @@
-export function Card({ classTypeColor, classTypeCard, typeCard, nameCard, dateCard }) {
+export function Card({ classTypeColor, classTypeCard, topic, title, date }) {
   return (
     <div className="cards__card card">
       <div className="card__group">
         <div className={classTypeColor}>
-          <p className={classTypeCard}>{typeCard}</p>
+          <p className={classTypeCard}>{topic}</p>
         </div>
         <a href="#popBrowse" target="_self">
           <div className="card__btn">
@@ -15,7 +15,7 @@ export function Card({ classTypeColor, classTypeCard, typeCard, nameCard, dateCa
       </div>
       <div className="card__content">
         <a href="" target="_blank">
-          <h3 className="card__title">{nameCard}</h3>
+          <h3 className="card__title">{title}</h3>
         </a>
         <div className="card__date">
           <svg
@@ -46,7 +46,7 @@ export function Card({ classTypeColor, classTypeCard, typeCard, nameCard, dateCa
               </clipPath>
             </defs>
           </svg>
-          <p>{dateCard}</p>
+          <p>{date}</p>
         </div>
       </div>
     </div>
