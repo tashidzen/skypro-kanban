@@ -1,23 +1,34 @@
+import {
+  Scards__card,
+  Scard__group,
+  Scard__btn,
+  Scard__content,
+  Scard__title,
+  Scard__date,
+  Scard__theme,
+  Stopic__color,
+} from "./Card.styled.js";
+
 export function Card({ classTypeColor, classTypeCard, topic, title, date }) {
   return (
-    <div className="cards__card card">
-      <div className="card__group">
-        <div className={classTypeColor}>
-          <p className={classTypeCard}>{topic}</p>
-        </div>
+    <Scards__card>
+      <Scard__group>
+        <Scard__theme $background_color={classTypeColor}>
+          <Stopic__color $color={classTypeCard}>{topic}</Stopic__color>
+        </Scard__theme>
         <a href="#popBrowse" target="_self">
-          <div className="card__btn">
+          <Scard__btn>
             <div></div>
             <div></div>
             <div></div>
-          </div>
+          </Scard__btn>
         </a>
-      </div>
-      <div className="card__content">
+      </Scard__group>
+      <Scard__content>
         <a href="" target="_blank">
-          <h3 className="card__title">{title}</h3>
+          <Scard__title>{title}</Scard__title>
         </a>
-        <div className="card__date">
+        <Scard__date>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="13"
@@ -47,8 +58,8 @@ export function Card({ classTypeColor, classTypeCard, topic, title, date }) {
             </defs>
           </svg>
           <p>{date}</p>
-        </div>
-      </div>
-    </div>
+        </Scard__date>
+      </Scard__content>
+    </Scards__card>
   );
 }

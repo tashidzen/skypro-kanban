@@ -1,5 +1,7 @@
 import { PopUser } from "../popups/PopUser/PopUser.jsx";
 import { useState } from "react";
+import { Sheader, Sheader__block, Sheader__logo, Sheader__nav, Sheader__user, Sheader__btn} from "./Header.styled.js";
+import { Scontainer } from "../Main/Main.styled.js";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,39 +11,37 @@ export function Header() {
   }
 
   return (
-    <header className="header">
-      <div className="container">
-        <div className="header__block">
-          <div className="header__logo _show _light">
+    <Sheader>
+      <Scontainer>
+        <Sheader__block>
+          <Sheader__logo $show $light>
             <a href="" target="_self">
               <img src={"images/logo.png"} alt="logo" />
             </a>
-          </div>
-          <div className="header__logo _dark">
+          </Sheader__logo>
+          <Sheader__logo $dark>
             <a href="" target="_self">
               <img src={"images/logo_dark.png"} alt="logo" />
             </a>
-          </div>
-          <nav className="header__nav">
-            <button className="header__btn-main-new _hover01" id="btnMainNew">
+          </Sheader__logo>
+          <Sheader__nav>
+            <Sheader__btn id="btnMainNew">
               <a href="#popNewCard">Создать новую задачу</a>
-            </button>
-            <a
+            </Sheader__btn>
+            <Sheader__user
               onClick={handleClick}
-              href="#user-set-target"
-              className="header__user _hover02"
             >
               Ivan Ivanov
-            </a>
+            </Sheader__user>
             {isOpen && (
               <PopUser
                 userName="Ivan Ivanov"
                 userMail="ivan.ivanov@gmail.com"
               />
             )}
-          </nav>
-        </div>
-      </div>
-    </header>
+          </Sheader__nav>
+        </Sheader__block>
+      </Scontainer>
+    </Sheader>
   );
 }

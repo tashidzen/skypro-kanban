@@ -1,10 +1,11 @@
 import { nanoid } from "nanoid";
+import { colors } from "./components/colors.js";
 
 export const cardList = [
   {
     id: nanoid(),
-    classTypeColor: "card__theme _orange",
-    classTypeCard: "_orange",
+    classTypeColor: colors.orange.background,
+    classTypeCard: colors.orange.color,
     topic: "Web Design",
     title: "Название задачи",
     date: "30.10.23",
@@ -12,17 +13,17 @@ export const cardList = [
   },
   {
     id: nanoid(),
-    classTypeColor: "card__theme _green",
-    classTypeCard: "_green",
+    classTypeColor: colors.green.background,
+    classTypeCard: colors.green.color,
     topic: "Research",
     title: "Название задачи",
-    date: "30.10.23",
+    date: "30.10.23", 
     status: "Без статуса",
   },
   {
     id: nanoid(),
-    classTypeColor: "card__theme _orange",
-    classTypeCard: "_orange",
+    classTypeColor: colors.orange.background,
+    classTypeCard: colors.orange.color,
     topic: "Web Design",
     title: "Название задачи",
     date: "30.10.23",
@@ -30,8 +31,8 @@ export const cardList = [
   },
   {
     id: nanoid(),
-    classTypeColor: "card__theme _purple",
-    classTypeCard: "_purple",
+    classTypeColor: colors.purple.background,
+    classTypeCard: colors.purple.color,
     topic: "Copywriting",
     title: "Название задачи",
     date: "30.10.23",
@@ -39,8 +40,8 @@ export const cardList = [
   },
   {
     id: nanoid(),
-    classTypeColor: "card__theme _green",
-    classTypeCard: "_green",
+    classTypeColor: colors.green.background,
+    classTypeCard: colors.green.color,
     topic: "Research",
     title: "Название задачи",
     date: "30.10.23",
@@ -48,8 +49,8 @@ export const cardList = [
   },
   {
     id: nanoid(),
-    classTypeColor: "card__theme _green",
-    classTypeCard: "_green",
+    classTypeColor: colors.green.background,
+    classTypeCard: colors.green.color,
     topic: "Research",
     title: "Название задачи",
     date: "30.10.23",
@@ -57,8 +58,8 @@ export const cardList = [
   },
   {
     id: nanoid(),
-    classTypeColor: "card__theme _green",
-    classTypeCard: "_green",
+    classTypeColor: colors.green.background,
+    classTypeCard: colors.green.color,
     topic: "Research",
     title: "Название задачи",
     date: "30.10.23",
@@ -66,8 +67,8 @@ export const cardList = [
   },
   {
     id: nanoid(),
-    classTypeColor: "card__theme _purple",
-    classTypeCard: "_purple",
+    classTypeColor: colors.purple.background,
+    classTypeCard: colors.purple.color,
     topic: "Copywriting",
     title: "Название задачи",
     date: "30.10.23",
@@ -75,8 +76,8 @@ export const cardList = [
   },
   {
     id: nanoid(),
-    classTypeColor: "card__theme _orange",
-    classTypeCard: "_orange",
+    classTypeColor: colors.orange.background,
+    classTypeCard: colors.orange.color,
     topic: "Web Design",
     title: "Название задачи",
     date: "30.10.23",
@@ -84,8 +85,8 @@ export const cardList = [
   },
   {
     id: nanoid(),
-    classTypeColor: "card__theme _green",
-    classTypeCard: "_green",
+    classTypeColor: colors.green.background,
+    classTypeCard: colors.green.color,
     topic: "Research",
     title: "Название задачи",
     date: "30.10.23",
@@ -93,8 +94,8 @@ export const cardList = [
   },
   {
     id: nanoid(),
-    classTypeColor: "card__theme _green",
-    classTypeCard: "_green",
+    classTypeColor: colors.green.background,
+    classTypeCard: colors.green.color,
     topic: "Research",
     title: "Название задачи",
     date: "30.10.23",
