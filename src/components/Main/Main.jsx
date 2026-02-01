@@ -1,6 +1,7 @@
 import { Main_column } from "../Column/Column.jsx";
 import { cardList } from "../../data.js";
 import { useState, useEffect } from "react";
+import { Smain, Scontainer, Smain__block, Smain__content, Smain__loading } from "./Main.styled.js";
 
 export function Main() {
   const cardListWithoutStatus = cardList.filter(
@@ -29,11 +30,11 @@ export function Main() {
   }, []);
 
   return (
-    <main className="main">
+    <Smain>
       {loading ? (
-        <div className="container">
-          <div className="main__block">
-            <div className="main__content">
+        <Scontainer>
+          <Smain__block>
+            <Smain__content>
               <Main_column
                 nameColumn="Без статуса"
                 isColumn={true}
@@ -43,12 +44,12 @@ export function Main() {
               <Main_column nameColumn="В работе" cards={cardListInProgress} />
               <Main_column nameColumn="Тестирование" cards={cardListTesting} />
               <Main_column nameColumn="Готово" cards={cardListReady} />
-            </div>
-          </div>
-        </div>
+            </Smain__content>
+          </Smain__block>
+        </Scontainer>
       ) : (
-        <p className="main__loading">Данные загружаются...</p>
+        <Smain__loading>Данные загружаются...</Smain__loading>
       )}
-    </main>
+    </Smain>
   );
 }

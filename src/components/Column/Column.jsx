@@ -1,19 +1,20 @@
 import { Card } from "../Card/Card.jsx";
+import { Smain__column, Scolumn__title, Scards, Scards__item } from "./Column.styled.js";
 
 export function Main_column({ nameColumn, cards = [], isColumn = false }) {
     const columnClass = isColumn ? "column" : "";
   return (
-    <div className={`main__column ${columnClass}`}>
-      <div className="column__title">
+    <Smain__column className={`${columnClass}`}>
+      <Scolumn__title>
         <p>{nameColumn}</p>
-      </div>
-      <div className="cards">
+      </Scolumn__title>
+      <Scards>
         {cards.map((cardParameters) => (
-          <div key={cardParameters.id} className="cards__item">
+          <Scards__item key={cardParameters.id}>
             <Card {...cardParameters} />
-          </div>
+          </Scards__item>
         ))}
-      </div>
-    </div>
+      </Scards>
+    </Smain__column>
   );
 }
