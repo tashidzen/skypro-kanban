@@ -8,21 +8,22 @@ import {
   Scard__theme,
   Stopic__color,
 } from "./Card.styled.js";
+import { Link } from "react-router-dom";
 
-export function Card({ classTypeColor, classTypeCard, topic, title, date }) {
+export function Card({ id, classTypeColor, classTypeCard, topic, title, date }) {
   return (
     <Scards__card>
       <Scard__group>
         <Scard__theme $background_color={classTypeColor}>
           <Stopic__color $color={classTypeCard}>{topic}</Stopic__color>
         </Scard__theme>
-        <a href="#popBrowse" target="_self">
+        <Link to={`card/${id}`} target="_self">
           <Scard__btn>
             <div></div>
             <div></div>
             <div></div>
           </Scard__btn>
-        </a>
+        </Link>
       </Scard__group>
       <Scard__content>
         <a href="" target="_blank">
@@ -63,3 +64,5 @@ export function Card({ classTypeColor, classTypeCard, topic, title, date }) {
     </Scards__card>
   );
 }
+
+export default Card;

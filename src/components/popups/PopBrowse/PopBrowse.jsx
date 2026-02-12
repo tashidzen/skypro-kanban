@@ -1,20 +1,53 @@
+import { Link } from "react-router-dom";
 import { Calendar } from "../../Calendar/Calendar.jsx";
+import styled from "styled-components";
 
 export function PopBrowse({
   nameTask,
   classTypeColor,
+  classTypeCard,
   typeCard,
-  hiddenStatusClass1 = true,
-  hiddenStatusClass2 = true,
-  hiddenStatusClass3 = true,
-  hiddenStatusClass4 = true,
-  hiddenStatusClass5 = true,
+  status,
+  // hiddenStatusClass1 = true,
+  // hiddenStatusClass2 = true,
+  // hiddenStatusClass3 = true,
+  // hiddenStatusClass4 = true,
+  // hiddenStatusClass5 = true,
 }) {
-    const hiddenStatus1 = hiddenStatusClass1 ? "_hide" : "_gray";
-    const hiddenStatus2 = hiddenStatusClass2 ? "_hide" : "_gray";
-    const hiddenStatus3 = hiddenStatusClass3 ? "_hide" : "_gray";
-    const hiddenStatus4 = hiddenStatusClass4 ? "_hide" : "_gray";
-    const hiddenStatus5 = hiddenStatusClass5 ? "_hide" : "_gray";
+  // const hiddenStatus1 = hiddenStatusClass1 ? "_hide" : "_gray";
+  // const hiddenStatus2 = hiddenStatusClass2 ? "_hide" : "_gray";
+  // const hiddenStatus3 = hiddenStatusClass3 ? "_hide" : "_gray";
+  // const hiddenStatus4 = hiddenStatusClass4 ? "_hide" : "_gray";
+  // const hiddenStatus5 = hiddenStatusClass5 ? "_hide" : "_gray";
+  const getStatusClass = (statusName) => {
+    return status === statusName ? "_gray" : "_hide";
+  };
+
+  const SclassTypeCard = styled.p`
+    color: ${classTypeCard};
+  `;
+
+  const Scategories__theme = styled.div`
+    display: inline-block;
+    width: auto;
+    height: 30px;
+    padding: 8px 20px;
+    border-radius: 24px;
+    margin-right: 7px;
+    opacity: 1;
+
+    p {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 14px;
+      white-space: nowrap;
+    }
+
+    display: block;
+
+    background: ${classTypeColor};
+  `;
+
   return (
     <div className="pop-browse" id="popBrowse">
       <div className="pop-browse__container">
@@ -22,26 +55,32 @@ export function PopBrowse({
           <div className="pop-browse__content">
             <div className="pop-browse__top-block">
               <h3 className="pop-browse__ttl">{nameTask}</h3>
-              <div className={`categories__theme theme-top ${classTypeColor} _active-category`}>
-                <p className={classTypeColor}>{typeCard}</p>
-              </div>
+              <Scategories__theme>
+                <SclassTypeCard>{typeCard}</SclassTypeCard>
+              </Scategories__theme>
             </div>
             <div className="pop-browse__status status">
               <p className="status__p subttl">Статус</p>
               <div className="status__themes">
-                <div className={`status__theme ${hiddenStatus1}`}>
+                <div
+                  className={`status__theme ${getStatusClass("Без статуса")}`}
+                >
                   <p>Без статуса</p>
                 </div>
-                <div className={`status__theme ${hiddenStatus2}`}>
+                <div
+                  className={`status__theme ${getStatusClass("Нужно сделать")}`}
+                >
                   <p className="_gray">Нужно сделать</p>
                 </div>
-                <div className={`status__theme ${hiddenStatus3}`}>
+                <div className={`status__theme ${getStatusClass("В работе")}`}>
                   <p>В работе</p>
                 </div>
-                <div className={`status__theme ${hiddenStatus4}`}>
+                <div
+                  className={`status__theme ${getStatusClass("Тестирование")}`}
+                >
                   <p>Тестирование</p>
                 </div>
-                <div className={`status__theme ${hiddenStatus5}`}>
+                <div className={`status__theme ${getStatusClass("Готово")}`}>
                   <p>Готово</p>
                 </div>
               </div>
@@ -77,9 +116,10 @@ export function PopBrowse({
             </div>
             <div className="theme-down__categories theme-down">
               <p className="categories__p subttl">Категория</p>
-              <div className={`categories__theme ${classTypeColor} _active-category`}>
-                <p className={classTypeColor}>{typeCard}</p>
-              </div>
+              <Scategories__theme
+              >
+                <SclassTypeCard>{typeCard}</SclassTypeCard>
+              </Scategories__theme>
             </div>
             <div className="pop-browse__btn-browse ">
               <div className="btn-group">
@@ -91,13 +131,13 @@ export function PopBrowse({
                 </button>
               </div>
               <button className="btn-browse__close _btn-bg _hover01">
-                <a href="#">Закрыть</a>
+                <Link to="/">Закрыть</Link>
               </button>
             </div>
             <div className="pop-browse__btn-edit _hide">
               <div className="btn-group">
                 <button className="btn-edit__edit _btn-bg _hover01">
-                  <a href="#">Сохранить</a>
+                  <Link to="/">Сохранить</Link>
                 </button>
                 <button className="btn-edit__edit _btn-bor _hover03">
                   <a href="#">Отменить</a>
@@ -110,7 +150,7 @@ export function PopBrowse({
                 </button>
               </div>
               <button className="btn-edit__close _btn-bg _hover01">
-                <a href="#">Закрыть</a>
+                <Link to="/">Закрыть</Link>
               </button>
             </div>
           </div>

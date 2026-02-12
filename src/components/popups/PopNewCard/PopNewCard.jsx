@@ -1,18 +1,23 @@
 import { Calendar } from "../../Calendar/Calendar.jsx";
+import { Link } from "react-router-dom";
 
-export function PopNewCard({ activeCategoryClass1=false, activeCategoryClass2=false, activeCategoryClass3=false }) {
-    const activeCategory1 = activeCategoryClass1 ? "_active-category" : "";
-    const activeCategory2 = activeCategoryClass2 ? "_active-category" : "";
-    const activeCategory3 = activeCategoryClass3 ? "_active-category" : "";
+export function PopNewCard({
+  activeCategoryClass1 = false,
+  activeCategoryClass2 = false,
+  activeCategoryClass3 = false,
+}) {
+  const activeCategory1 = activeCategoryClass1 ? "_active-category" : "";
+  const activeCategory2 = activeCategoryClass2 ? "_active-category" : "";
+  const activeCategory3 = activeCategoryClass3 ? "_active-category" : "";
   return (
     <div className="pop-new-card" id="popNewCard">
       <div className="pop-new-card__container">
         <div className="pop-new-card__block">
           <div className="pop-new-card__content">
             <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <a href="#" className="pop-new-card__close">
+            <Link to="/" className="pop-new-card__close">
               &#10006;
-            </a>
+            </Link>
             <div className="pop-new-card__wrap">
               <form
                 className="pop-new-card__form form-new"
@@ -75,3 +80,5 @@ export function PopNewCard({ activeCategoryClass1=false, activeCategoryClass2=fa
     </div>
   );
 }
+
+export default PopNewCard;
