@@ -2,6 +2,7 @@ import { PopUser } from "../popups/PopUser/PopUser.jsx";
 import { useState } from "react";
 import { Sheader, Sheader__block, Sheader__logo, Sheader__nav, Sheader__user, Sheader__btn} from "./Header.styled.js";
 import { Scontainer } from "../Main/Main.styled.js";
+import { Link } from "react-router-dom";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +27,7 @@ export function Header() {
           </Sheader__logo>
           <Sheader__nav>
             <Sheader__btn id="btnMainNew">
-              <a href="#popNewCard">Создать новую задачу</a>
+              <Link to="card/add">Создать новую задачу</Link>
             </Sheader__btn>
             <Sheader__user
               onClick={handleClick}
