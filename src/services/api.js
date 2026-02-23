@@ -10,9 +10,7 @@ export async function fetchTasks({ token }) {
         Authorization: "Bearer " + token,
       },
     });
-    console.log("ДАННЫЕ С СЕРВЕРА:", data.data)
     return data.data.tasks;
-    // когда работаем с axios, не забываем, что результат лежит в ключе datа
   } catch (error) {
     throw new Error(error.message);
   }
