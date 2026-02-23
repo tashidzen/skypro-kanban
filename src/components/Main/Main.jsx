@@ -1,39 +1,43 @@
 import { Main_column } from "../Column/Column.jsx";
-import { cardList } from "../../data.js";
-import { useState, useEffect } from "react";
-import { Smain, Scontainer, Smain__block, Smain__content, Smain__loading } from "./Main.styled.js";
+// import { cardList } from "../../data.js";
+// import { useState, useEffect } from "react";
+import {
+  Smain,
+  Scontainer,
+  Smain__block,
+  Smain__content,
+  Smain__loading,
+  S_error,
+} from "./Main.styled.js";
 
-export function Main() {
-  const cardListWithoutStatus = cardList.filter(
+export function Main({ error, tasks, loading }) {
+  const cardListWithoutStatus = tasks.filter(
     (card) => card.status === "Без статуса",
   );
 
-  const cardListToDo = cardList.filter(
-    (card) => card.status === "Нужно сделать",
-  );
+  const cardListToDo = tasks.filter((card) => card.status === "Нужно сделать");
 
-  const cardListInProgress = cardList.filter(
-    (card) => card.status === "В работе",
-  );
+  const cardListInProgress = tasks.filter((card) => card.status === "В работе");
 
-  const cardListTesting = cardList.filter(
+  const cardListTesting = tasks.filter(
     (card) => card.status === "Тестирование",
   );
 
-  const cardListReady = cardList.filter((card) => card.status === "Готово");
+  const cardListReady = tasks.filter((card) => card.status === "Готово");
 
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(true);
-    }, 3000);
-  }, []);
+  // const [loading, setLoading] = useState(false);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setLoading(true);
+  //   }, 3000);
+  // }, []);
 
   return (
     <Smain>
       {loading ? (
         <Scontainer>
           <Smain__block>
+            <S_error>{error}</S_error>
             <Smain__content>
               <Main_column
                 nameColumn="Без статуса"

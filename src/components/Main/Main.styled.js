@@ -45,4 +45,8 @@ export const Smain__loading = styled.p`
   background-color: #f1f1f1;
 `;
 
-
+export const S_error = styled.p`
+  margin-top: 1%;
+  text-align: center;
+  font-size: 20px;
+`;
