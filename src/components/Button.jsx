@@ -30,17 +30,20 @@ const SButton = styled.button`
   @media screen and (max-width: 375px) {
     height: 40px;
   }
-
 `;
 
 const TextButton = styled(SButton)`
   &:hover {
-  background-color: #33399b;
-}
+    background-color: #33399b;
+  }
 `;
 
-const Button = ({ text, onClick }) => {
-  return <TextButton onClick={onClick}>{text}</TextButton>;
+const BaseButton = ({ text, onClick, type = "button" }) => {
+  return (
+    <TextButton type={type} onClick={onClick}>
+      {text}
+    </TextButton>
+  );
 };
 
-export default Button;
+export default BaseButton;
