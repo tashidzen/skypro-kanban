@@ -3,12 +3,12 @@ import { Main } from "../Main/Main.jsx";
 import { Header } from "../Header/Header.jsx";
 import { Swrapper } from "./MainApp.styled.js";
 import { Outlet } from "react-router-dom";
-import { useState, useEffect, useCallback } from "react";
-import { fetchTasks } from "../../services/api.js";
+import { useState, useEffect, useCallback, useContext } from "react";
+import { TaskContext } from "../../context/contextAPI.js";
 
 function MainApp() {
   const [loading, setLoading] = useState(false);
-  const [tasks, setTasks] = useState([]);
+  const { setTasks, getAllTasks } = useContext(TaskContext);
   const [error, setError] = useState("");
 
   const getTasks = useCallback(async () => {
@@ -17,12 +17,7 @@ function MainApp() {
         setLoading(true);
       }, 3000);
 
-      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-      const token = userInfo?.token;
-
-      const data = await fetchTasks({
-        token: token,
-      });
+      const data = await getAllTasks();
       if (data) setTasks(data);
     } catch (err) {
       if (err.message === "Request failed with status code 401") {
@@ -43,7 +38,7 @@ function MainApp() {
     <>
       <Swrapper>
         <Header />
-        <Main error={error} tasks={tasks} loading={loading} />
+        <Main error={error} loading={loading} />
         <Outlet />
       </Swrapper>
 
