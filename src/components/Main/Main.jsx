@@ -1,6 +1,5 @@
+import { useContext } from "react";
 import { Main_column } from "../Column/Column.jsx";
-// import { cardList } from "../../data.js";
-// import { useState, useEffect } from "react";
 import {
   Smain,
   Scontainer,
@@ -9,8 +8,11 @@ import {
   Smain__loading,
   S_error,
 } from "./Main.styled.js";
+import { TaskContext } from "../../context/contextAPI.js";
 
-export function Main({ error, tasks, loading }) {
+export function Main({ error, loading }) {
+  const { tasks } = useContext(TaskContext);
+
   const cardListWithoutStatus = tasks.filter(
     (card) => card.status === "Без статуса",
   );
@@ -24,13 +26,6 @@ export function Main({ error, tasks, loading }) {
   );
 
   const cardListReady = tasks.filter((card) => card.status === "Готово");
-
-  // const [loading, setLoading] = useState(false);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setLoading(true);
-  //   }, 3000);
-  // }, []);
 
   return (
     <Smain>

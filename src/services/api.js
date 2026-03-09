@@ -10,9 +10,7 @@ export async function fetchTasks({ token }) {
         Authorization: "Bearer " + token,
       },
     });
-    console.log("ДАННЫЕ С СЕРВЕРА:", data.data)
     return data.data.tasks;
-    // когда работаем с axios, не забываем, что результат лежит в ключе datа
   } catch (error) {
     throw new Error(error.message);
   }
@@ -50,7 +48,7 @@ export async function postTask({ token, task }) {
 // Изменить задачу
 export async function editTask({ token, id, task }) {
   try {
-    const data = await axios.put(API_URL + id, task, {
+    const data = await axios.put(`${API_URL}/${id}`, task, {
       headers: {
         Authorization: "Bearer " + token,
         "Content-Type": "text/html",
@@ -65,7 +63,7 @@ export async function editTask({ token, id, task }) {
 // Удалить задачу
 export async function deleteTask({ token, id }) {
   try {
-    const data = await axios.delete(API_URL + id, {
+    const data = await axios.delete(`${API_URL}/${id}`, {
       headers: {
         Authorization: "Bearer " + token,
         "Content-Type": "text",

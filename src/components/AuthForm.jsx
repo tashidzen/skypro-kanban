@@ -11,11 +11,13 @@ import {
   Smodal__formLogin,
   Smodal__formGroup,
 } from "./App.styled.js";
-import { signIn, signUp } from "../services/auth.js";
-import { useState } from "react";
+import { signUp } from "../services/auth.js";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/contextAPI";
 
 const AuthForm = ({ isSignUp, setIsAuth }) => {
   const navigate = useNavigate();
+  const { logIn } = useContext(AuthContext);
 
   // состояние полей
   const [formData, setFormData] = useState({
@@ -77,18 +79,12 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
-      // если форма не прошла валидацию, то дальше не продолжаем
       return;
     }
     try {
-      console.log("Отправка данных:", formData); // ПОСМОТРИТЕ ЧТО ПРИХОДИТ
-      // чтобы не писать две разных функции, выберем нужный запрос через
-      // тернарный оператор
       const data = !isSignUp
-        ? await signIn({ login: formData.login, password: formData.password })
+        ? await logIn(formData.login, formData.password)
         : await signUp(formData);
-
-      console.log("Ответ от сервера:", data); // ПОСМОТРИТЕ ЧТО ВЕРНУЛОСЬ
 
       if (data) {
         console.log("Успех! Устанавливаем авторизацию");
