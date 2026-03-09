@@ -15,7 +15,7 @@ export function Main_column({ nameColumn, cards = [], isColumn = false }) {
       </Scolumn__title>
       <Scards>
         {cards.length === 0 ? (
-          <Scards__item>
+          <Scards__item key="no-tasks">
             <p>Нет задач</p>
           </Scards__item>
         ) : (

@@ -35,14 +35,31 @@ export function Main({ error, loading }) {
             <S_error>{error}</S_error>
             <Smain__content>
               <Main_column
+                key="without-status"
                 nameColumn="Без статуса"
                 isColumn={true}
                 cards={cardListWithoutStatus}
               />
-              <Main_column nameColumn="Нужно сделать" cards={cardListToDo} />
-              <Main_column nameColumn="В работе" cards={cardListInProgress} />
-              <Main_column nameColumn="Тестирование" cards={cardListTesting} />
-              <Main_column nameColumn="Готово" cards={cardListReady} />
+              <Main_column
+                key="to-do"
+                nameColumn="Нужно сделать"
+                cards={cardListToDo}
+              />
+              <Main_column
+                key="in-progress"
+                nameColumn="В работе"
+                cards={cardListInProgress}
+              />
+              <Main_column
+                key="test"
+                nameColumn="Тестирование"
+                cards={cardListTesting}
+              />
+              <Main_column
+                key="done"
+                nameColumn="Готово"
+                cards={cardListReady}
+              />
             </Smain__content>
           </Smain__block>
         </Scontainer>

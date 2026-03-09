@@ -8,3 +8,15 @@ export function formatDate(dateString) {
   };
   return date.toLocaleString("ru-RU", options).replace(",", "");
 }
+
+export function formatToMonthYear(dateString) {
+  const date = new Date(dateString);
+
+  return date
+    .toLocaleString("ru-RU", {
+      month: "long",
+      year: "numeric",
+    })
+    .replace(" г.", "")
+    .replace(/^[а-я]/, (c) => c.toUpperCase());
+}

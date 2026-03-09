@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { TaskContext } from "../../../context/contextAPI.js";
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { formatDate } from "../../../formateDate.js";
+import { formatDate, formatToMonthYear } from "../../../formateDate.js";
 
 export function PopBrowse({ taskId }) {
   const { tasks, delTask, updateTask } = useContext(TaskContext);
@@ -30,7 +30,7 @@ export function PopBrowse({ taskId }) {
   useEffect(() => {
     if (task) {
       setTaskName(task.title || "");
-      setTaskDescription(task.description || ""); // Обновляем описание
+      setTaskDescription(task.description || "");
       setTaskStatus(task.status || "Без статуса");
       setTaskDate(task.date || Date.now());
     }
@@ -54,7 +54,14 @@ export function PopBrowse({ taskId }) {
 
   const onDateChange = (newDate) => {
     if (isEditing) {
-      setTaskDate(newDate);
+      const [day, month, year] = newDate.split(".");
+      const fullYear = 2000 + parseInt(year);
+
+      const isoDate = new Date(
+        Date.UTC(fullYear, parseInt(month) - 1, parseInt(day), 22, 0, 0),
+      ).toISOString();
+
+      setTaskDate(isoDate);
     }
   };
 
@@ -188,7 +195,7 @@ export function PopBrowse({ taskId }) {
               <div className="pop-new-card__calendar calendar">
                 <p className="calendar__ttl subttl">Даты</p>
                 <Calendar
-                  calendarMonth="Сентябрь 2023"
+                  calendarMonth={formatToMonthYear(taskDate)}
                   classActiveDay={true}
                   deadlineTask="Срок исполнения: "
                   dateControl={formatDate(taskDate)}

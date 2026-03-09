@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { TaskContext } from "../../../context/contextAPI.js";
 import { useContext, useState } from "react";
 import { colors } from "../../colors.js";
+import { formatToMonthYear } from "../../../formateDate.js";
 
 export function PopNewCard({ onClose }) {
   const navigate = useNavigate();
@@ -13,6 +14,9 @@ export function PopNewCard({ onClose }) {
   const [taskName, setTaskName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Research");
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const currentDate = formatToMonthYear(new Date());
 
   const onInputTaskName = (e) => {
     setTaskName(e.target.value);
@@ -25,6 +29,13 @@ export function PopNewCard({ onClose }) {
   const onCategoryClick = (category) => {
     setSelectedCategory(category);
   };
+
+  const onDateChange = (newDate) => {
+    setSelectedDate(newDate);
+  };
+  const deadlineText = selectedDate
+    ? `Срок исполнения: `
+    : "Выберите срок исполнения";
 
   const onAddTask = async () => {
     setSaving(true);
@@ -56,6 +67,18 @@ export function PopNewCard({ onClose }) {
         }
       };
 
+      // Преобразуем выбранную дату в ISO формат
+      let dateForApi = null;
+      if (selectedDate) {
+        const [day, month, year] = selectedDate.split(".");
+        const fullYear = 2000 + parseInt(year);
+        dateForApi = new Date(
+          fullYear,
+          parseInt(month) - 1,
+          parseInt(day),
+        ).toISOString();
+      }
+
       // Ждем добавления задачи
       await addTask({
         nameTask: taskName,
@@ -63,11 +86,13 @@ export function PopNewCard({ onClose }) {
         topicTask: selectedCategory,
         classTypeColor: getBackgroundColor(selectedCategory),
         classTypeCard: getTextColor(selectedCategory),
+        dateTask: dateForApi,
       });
       // Очищаем форму
       setTaskName("");
       setTaskDescription("");
       setSelectedCategory("Research");
+      setSelectedDate(null);
 
       // Закрываем форму
       handleClose();
@@ -135,8 +160,11 @@ export function PopNewCard({ onClose }) {
               <div className="pop-new-card__calendar calendar">
                 <p className="calendar__ttl subttl">Даты</p>
                 <Calendar
-                  calendarMonth="Сентябрь 2023"
-                  deadlineTask="Выберите срок исполнения"
+                  calendarMonth={currentDate}
+                  classActiveDay={true}
+                  deadlineTask={deadlineText}
+                  dateControl={selectedDate || ""}
+                  onDateChange={onDateChange}
                 />
               </div>
             </div>

@@ -72,7 +72,7 @@ export const Scalendar__dayName = styled.div`
 
 export const Scalendar__cells = styled.div`
   width: 182px;
-  height: 126px;
+  min-height: 126px;
   display: flex;
   flex-wrap: wrap;
 
