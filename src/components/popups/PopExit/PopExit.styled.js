@@ -87,8 +87,8 @@ export const SpopExit__exitYes = styled.button`
     margin-bottom: 10px;
   }
 
-  ${({ _hover01 }) =>
-    _hover01 &&
+  ${({ $_hover01 }) =>
+    $_hover01 &&
     `
     &:hover {
       background-color: #33399b;
@@ -117,8 +117,8 @@ export const SpopExit__exitNo = styled.button`
     height: 40px;
   }
 
-  ${({ _hover03 }) =>
-    _hover03 &&
+  ${({ $_hover03 }) =>
+    $_hover03 &&
     `
     &:hover {
       background-color: #33399b;

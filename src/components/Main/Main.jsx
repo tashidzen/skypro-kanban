@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { Fragment, useContext } from "react";
 import { Main_column } from "../Column/Column.jsx";
 import {
   Smain,
@@ -34,32 +34,34 @@ export function Main({ error, loading }) {
           <Smain__block>
             <S_error>{error}</S_error>
             <Smain__content>
-              <Main_column
-                key="without-status"
-                nameColumn="Без статуса"
-                isColumn={true}
-                cards={cardListWithoutStatus}
-              />
-              <Main_column
-                key="to-do"
-                nameColumn="Нужно сделать"
-                cards={cardListToDo}
-              />
-              <Main_column
-                key="in-progress"
-                nameColumn="В работе"
-                cards={cardListInProgress}
-              />
-              <Main_column
-                key="test"
-                nameColumn="Тестирование"
-                cards={cardListTesting}
-              />
-              <Main_column
-                key="done"
-                nameColumn="Готово"
-                cards={cardListReady}
-              />
+              <Fragment key="all-columns">
+                <Main_column
+                  key="without-status"
+                  nameColumn="Без статуса"
+                  isColumn={true}
+                  cards={cardListWithoutStatus}
+                />
+                <Main_column
+                  key="to-do"
+                  nameColumn="Нужно сделать"
+                  cards={cardListToDo}
+                />
+                <Main_column
+                  key="in-progress"
+                  nameColumn="В работе"
+                  cards={cardListInProgress}
+                />
+                <Main_column
+                  key="test"
+                  nameColumn="Тестирование"
+                  cards={cardListTesting}
+                />
+                <Main_column
+                  key="done"
+                  nameColumn="Готово"
+                  cards={cardListReady}
+                />
+              </Fragment>
             </Smain__content>
           </Smain__block>
         </Scontainer>

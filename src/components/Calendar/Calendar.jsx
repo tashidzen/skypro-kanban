@@ -54,6 +54,9 @@ const getCurrentMonthDays = (date) => {
   // Если firstDayWeek = 0 (воскресенье), то это 7-й день
   firstDayWeek = firstDayWeek === 0 ? 7 : firstDayWeek;
 
+  let lastDayWeek = lastDayOfMonth.getDay();
+  lastDayWeek = lastDayWeek === 0 ? 7 : lastDayWeek;
+
   const days = [];
 
   // Добавляем пустые дни
@@ -74,11 +77,31 @@ const getCurrentMonthDays = (date) => {
     });
   }
 
+  // Добавляем пустые дни в конце до воскресенья
+  const remainingDays = 7 - lastDayWeek;
+  if (remainingDays > 0 && remainingDays < 7) {
+    for (let i = 0; i < remainingDays; i++) {
+      days.push({
+        day: null,
+        date: null,
+        isEmpty: true,
+      });
+    }
+  }
+
   return days;
 };
 
 const parseDateString = (dateString) => {
   if (!dateString) return null;
+
+  // Если приходит ISO строка из API
+  if (dateString.includes("T") || dateString.includes("-")) {
+    const date = new Date(dateString);
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  }
+
+  // Если приходит строка в формате "DD.MM.YY"
   const parts = dateString.split(".");
   if (parts.length === 3) {
     const [day, month, year] = parts;

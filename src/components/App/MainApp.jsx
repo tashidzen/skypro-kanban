@@ -1,4 +1,3 @@
-import "../../App.css";
 import { Main } from "../Main/Main.jsx";
 import { Header } from "../Header/Header.jsx";
 import { Swrapper } from "./MainApp.styled.js";
@@ -35,15 +34,11 @@ function MainApp() {
   }, [getTasks]);
 
   return (
-    <>
-      <Swrapper>
-        <Header />
-        <Main error={error} loading={loading} />
-        <Outlet />
-      </Swrapper>
-
-      <script src="js/script.js"></script>
-    </>
+    <Swrapper>
+      <Header />
+      <Main error={error} loading={loading} />
+      <Outlet />
+    </Swrapper>
   );
 }
 

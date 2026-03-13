@@ -1,10 +1,37 @@
 import { Link } from "react-router-dom";
 import { Calendar } from "../../Calendar/Calendar.jsx";
-import styled from "styled-components";
 import { TaskContext } from "../../../context/contextAPI.js";
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatDate, formatToMonthYear } from "../../../formateDate.js";
+import {
+  SpopBrowse,
+  SpopBrowseContainer,
+  SpopBrowseBlock,
+  SpopBrowseContent,
+  SpopBrowseTopBlock,
+  SThemeDown,
+  SpopBrowseTtl,
+  SpopBrowseStatus,
+  SstatusP,
+  SstatusThemes,
+  SstatusTheme,
+  SpopBrowseWrap,
+  SpopBrowseForm,
+  Ssubttl,
+  SformBrowseBlock,
+  SformBrowseArea,
+  Scalendar,
+  ScalendarTtl,
+  ScategoriesP,
+  SpopBrowseBtn,
+  SbtnGroup,
+  SbtnBor,
+  SbtnBg,
+  SpopBrowseLoading,
+  SclassTypeCard,
+  Scategories__theme,
+} from "./PopBrowse.styled.js";
 
 export function PopBrowse({ taskId }) {
   const { tasks, delTask, updateTask } = useContext(TaskContext);
@@ -15,10 +42,12 @@ export function PopBrowse({ taskId }) {
   const [deleting, setDeleting] = useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
-  const [taskName, setTaskName] = useState("");
-  const [taskDescription, setTaskDescription] = useState();
-  const [taskStatus, setTaskStatus] = useState("");
-  const [taskDate, setTaskDate] = useState(Date.now());
+  const [taskName, setTaskName] = useState(task?.title || "");
+  const [taskDescription, setTaskDescription] = useState(
+    task?.description || "",
+  );
+  const [taskStatus, setTaskStatus] = useState(task?.status || "Без статуса");
+  const [taskDate, setTaskDate] = useState(task?.date || (() => Date.now()));
 
   const statuses = [
     "Без статуса",
@@ -27,14 +56,6 @@ export function PopBrowse({ taskId }) {
     "Тестирование",
     "Готово",
   ];
-  useEffect(() => {
-    if (task) {
-      setTaskName(task.title || "");
-      setTaskDescription(task.description || "");
-      setTaskStatus(task.status || "Без статуса");
-      setTaskDate(task.date || Date.now());
-    }
-  }, [task]);
 
   useEffect(() => {
     if (!task) {
@@ -58,7 +79,7 @@ export function PopBrowse({ taskId }) {
       const fullYear = 2000 + parseInt(year);
 
       const isoDate = new Date(
-        Date.UTC(fullYear, parseInt(month) - 1, parseInt(day), 22, 0, 0),
+        Date.UTC(fullYear, parseInt(month) - 1, parseInt(day), 12, 0, 0),
       ).toISOString();
 
       setTaskDate(isoDate);
@@ -67,10 +88,16 @@ export function PopBrowse({ taskId }) {
 
   const getStatusClass = (statusName) => {
     if (!isEditing) {
-      return task?.status === statusName ? "_gray" : "_hide";
+      return {
+        $isGray: task?.status === statusName,
+        $isHide: task?.status !== statusName,
+      };
     }
     // В режиме редактирования подсвечиваем выбранный статус
-    return taskStatus === statusName ? "_gray" : "";
+    return {
+      $isGray: taskStatus === statusName,
+      $isHide: false,
+    };
   };
 
   const handleEditClick = () => {
@@ -112,88 +139,52 @@ export function PopBrowse({ taskId }) {
     navigate("/");
   };
 
-  const SclassTypeCard = styled.p`
-    color: ${task.classTypeCard};
-  `;
-
-  const Scategories__theme = styled.div`
-    display: inline-block;
-    width: auto;
-    height: 30px;
-    padding: 8px 20px;
-    border-radius: 24px;
-    margin-right: 7px;
-    opacity: 1;
-
-    p {
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 14px;
-      white-space: nowrap;
-    }
-
-    display: block;
-
-    background: ${task.classTypeColor};
-  `;
-
   return (
-    <div className="pop-browse" id="popBrowse">
-      <div className="pop-browse__container">
-        <div className="pop-browse__block">
-          <div className="pop-browse__content">
-            <div className="pop-browse__top-block">
-              <h3 className="pop-browse__ttl">{task.title}</h3>
-              <Scategories__theme>
-                <SclassTypeCard>{task.topic}</SclassTypeCard>
+    <SpopBrowse id="popBrowse">
+      <SpopBrowseContainer>
+        <SpopBrowseBlock>
+          <SpopBrowseContent>
+            <SpopBrowseTopBlock>
+              <SpopBrowseTtl>{task?.title}</SpopBrowseTtl>
+              <Scategories__theme color={task?.classTypeColor}>
+                <SclassTypeCard color={task?.classTypeCard}>
+                  {task?.topic}
+                </SclassTypeCard>
               </Scategories__theme>
-            </div>
-            <div className="pop-browse__status status">
-              <p className="status__p subttl">Статус</p>
-              <div className="status__themes">
+            </SpopBrowseTopBlock>
+            <SpopBrowseStatus>
+              <SstatusP as="p">Статус</SstatusP>
+              <SstatusThemes>
                 {statuses.map((statusName) => (
-                  <div
+                  <SstatusTheme
                     key={statusName}
-                    className={`status__theme ${getStatusClass(statusName)}`}
+                    {...getStatusClass(statusName)}
                     onClick={() => onStatusClick(statusName)}
                     style={{ cursor: isEditing ? "pointer" : "default" }}
                   >
-                    <p
-                      className={
-                        isEditing && taskStatus === statusName
-                          ? "status-active-text"
-                          : ""
-                      }
-                    >
-                      {statusName}
-                    </p>
-                  </div>
+                    <p>{statusName}</p>
+                  </SstatusTheme>
                 ))}
-              </div>
-            </div>
-            <div className="pop-browse__wrap">
-              <form
-                className="pop-browse__form form-browse"
-                id="formBrowseCard"
-                action="#"
-              >
-                <div className="form-browse__block">
-                  <label htmlFor="textArea01" className="subttl">
+              </SstatusThemes>
+            </SpopBrowseStatus>
+            <SpopBrowseWrap>
+              <SpopBrowseForm id="formBrowseCard" action="#">
+                <SformBrowseBlock>
+                  <Ssubttl as="label" htmlFor="textArea01">
                     Описание задачи
-                  </label>
-                  <textarea
-                    className="form-browse__area"
+                  </Ssubttl>
+                  <SformBrowseArea
                     name="text"
                     id="textArea01"
                     readOnly={!isEditing}
                     placeholder="Введите описание задачи..."
                     value={taskDescription}
                     onChange={onInputTaskDescription}
-                  ></textarea>
-                </div>
-              </form>
-              <div className="pop-new-card__calendar calendar">
-                <p className="calendar__ttl subttl">Даты</p>
+                  ></SformBrowseArea>
+                </SformBrowseBlock>
+              </SpopBrowseForm>
+              <Scalendar $popNewCardCalendar>
+                <ScalendarTtl as="p">Даты</ScalendarTtl>
                 <Calendar
                   calendarMonth={formatToMonthYear(taskDate)}
                   classActiveDay={true}
@@ -201,75 +192,61 @@ export function PopBrowse({ taskId }) {
                   dateControl={formatDate(taskDate)}
                   onDateChange={onDateChange}
                 />
-              </div>
-            </div>
-            <div className="theme-down__categories theme-down">
-              <p className="categories__p subttl">Категория</p>
-              <Scategories__theme>
-                <SclassTypeCard>{task.topic}</SclassTypeCard>
+              </Scalendar>
+            </SpopBrowseWrap>
+            <SThemeDown>
+              <ScategoriesP as="p">Категория</ScategoriesP>
+              <Scategories__theme color={task?.classTypeColor}>
+                <SclassTypeCard color={task?.classTypeCard}>
+                  {task?.topic}
+                </SclassTypeCard>
               </Scategories__theme>
-            </div>
+            </SThemeDown>
 
             {!isEditing && !deleting && (
-              <div className="pop-browse__btn-browse ">
-                <div className="btn-group">
-                  <button
-                    className="btn-browse__edit _btn-bor _hover03"
-                    onClick={handleEditClick}
-                  >
+              <SpopBrowseBtn>
+                <SbtnGroup>
+                  <SbtnBor $_hover03 onClick={handleEditClick}>
                     Редактировать задачу
-                  </button>
-                  <button
-                    className="btn-browse__delete _btn-bor _hover03"
-                    onClick={handleDeleteClick}
-                  >
+                  </SbtnBor>
+                  <SbtnBor $_hover03 onClick={handleDeleteClick}>
                     Удалить задачу
-                  </button>
-                </div>
-                <button className="btn-browse__close _btn-bg _hover01">
+                  </SbtnBor>
+                </SbtnGroup>
+                <SbtnBg $_hover01>
                   <Link to="/">Закрыть</Link>
-                </button>
-              </div>
+                </SbtnBg>
+              </SpopBrowseBtn>
             )}
 
             {isEditing && !loading && !deleting && (
-              <div className="pop-browse__btn-edit">
-                <div className="btn-group">
-                  <button
-                    className="btn-edit__edit _btn-bg _hover01"
-                    onClick={handleSaveClick}
-                  >
+              <SpopBrowseBtn>
+                <SbtnGroup>
+                  <SbtnBg $_hover01 onClick={handleSaveClick}>
                     Сохранить
-                  </button>
-                  <button
-                    className="btn-edit__edit _btn-bor _hover03"
-                    onClick={handleCancelClick}
-                  >
+                  </SbtnBg>
+                  <SbtnBor $_hover03 onClick={handleCancelClick}>
                     Отменить
-                  </button>
-                  <button
-                    className="btn-edit__delete _btn-bor _hover03"
-                    id="btnDelete"
-                    onClick={handleDeleteClick}
-                  >
+                  </SbtnBor>
+                  <SbtnBor $_hover03 id="btnDelete" onClick={handleDeleteClick}>
                     Удалить задачу
-                  </button>
-                </div>
-                <button className="btn-edit__close _btn-bg _hover01">
+                  </SbtnBor>
+                </SbtnGroup>
+                <SbtnBg $_hover01>
                   <Link to="/">Закрыть</Link>
-                </button>
-              </div>
+                </SbtnBg>
+              </SpopBrowseBtn>
             )}
 
             {loading && (
-              <div className="pop-browse__loading">Сохраняем изменения...</div>
+              <SpopBrowseLoading>Сохраняем изменения...</SpopBrowseLoading>
             )}
             {deleting && (
-              <div className="pop-browse__loading">Удаляем задачу...</div>
+              <SpopBrowseLoading>Удаляем задачу...</SpopBrowseLoading>
             )}
-          </div>
-        </div>
-      </div>
-    </div>
+          </SpopBrowseContent>
+        </SpopBrowseBlock>
+      </SpopBrowseContainer>
+    </SpopBrowse>
   );
 }

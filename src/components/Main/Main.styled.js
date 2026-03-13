@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Smain = styled.main`
   width: 100%;
@@ -38,11 +38,30 @@ export const Smain__content = styled.div`
   }
 `;
 
+const loadingAnimation = keyframes`
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+`;
+
 export const Smain__loading = styled.p`
   margin-top: 10%;
   text-align: center;
   font-size: 20px;
-  background-color: #f1f1f1;
+  background-color: #eaeef6;
+
+  &::after {
+    content: "⏳";
+    display: inline-block;
+    font-size: 20px;
+    line-height: 1;
+    animation: ${loadingAnimation} 1.5s infinite;
+  }
 `;
 
 export const S_error = styled.p`

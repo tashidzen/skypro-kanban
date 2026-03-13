@@ -1,9 +1,30 @@
 import { Calendar } from "../../Calendar/Calendar.jsx";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { TaskContext } from "../../../context/contextAPI.js";
 import { useContext, useState } from "react";
 import { colors } from "../../colors.js";
 import { formatToMonthYear } from "../../../formateDate.js";
+import {
+  SformNewBlock,
+  SformNewInput,
+  Ssubttl,
+  ScalendarTtl,
+  Scategories,
+  ScategoriesP,
+  SformNewArea,
+  Scalendar,
+  SpopNewCardClose,
+  SpopNewCardTtl,
+  SpopNewCardForm,
+  SpopNewCardWrap,
+  SpopNewCardContent,
+  SpopNewCardBlock,
+  SpopNewCardContainer,
+  SpopNewCard,
+  ScategoriesThemes,
+  SformNewCreate,
+  ScategoriesTheme,
+} from "./PopNewCard.styled.js";
 
 export function PopNewCard({ onClose }) {
   const navigate = useNavigate();
@@ -68,7 +89,7 @@ export function PopNewCard({ onClose }) {
       };
 
       // Преобразуем выбранную дату в ISO формат
-      let dateForApi = null;
+      let dateForApi = new Date();
       if (selectedDate) {
         const [day, month, year] = selectedDate.split(".");
         const fullYear = 2000 + parseInt(year);
@@ -111,27 +132,22 @@ export function PopNewCard({ onClose }) {
   };
 
   return (
-    <div className="pop-new-card" id="popNewCard">
-      <div className="pop-new-card__container">
-        <div className="pop-new-card__block">
-          <div className="pop-new-card__content">
-            <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <Link to="/" onClick={handleClose} className="pop-new-card__close">
+    <SpopNewCard id="popNewCard">
+      <SpopNewCardContainer>
+        <SpopNewCardBlock>
+          <SpopNewCardContent>
+            <SpopNewCardTtl>Создание задачи</SpopNewCardTtl>
+            <SpopNewCardClose to="/" onClick={handleClose}>
               &#10006;
-            </Link>
+            </SpopNewCardClose>
 
-            <div className="pop-new-card__wrap">
-              <form
-                className="pop-new-card__form form-new"
-                id="formNewCard"
-                action="#"
-              >
-                <div className="form-new__block">
-                  <label htmlFor="formTitle" className="subttl">
+            <SpopNewCardWrap>
+              <SpopNewCardForm id="formNewCard" action="#">
+                <SformNewBlock>
+                  <Ssubttl as="label" htmlFor="formTitle">
                     Название задачи
-                  </label>
-                  <input
-                    className="form-new__input"
+                  </Ssubttl>
+                  <SformNewInput
                     type="text"
                     name="name"
                     id="formTitle"
@@ -141,24 +157,23 @@ export function PopNewCard({ onClose }) {
                     onChange={onInputTaskName}
                     disabled={saving}
                   />
-                </div>
-                <div className="form-new__block">
-                  <label htmlFor="textArea" className="subttl">
+                </SformNewBlock>
+                <SformNewBlock>
+                  <Ssubttl as="label" htmlFor="textArea">
                     Описание задачи
-                  </label>
-                  <textarea
-                    className="form-new__area"
+                  </Ssubttl>
+                  <SformNewArea
                     name="text"
                     id="textArea"
                     placeholder="Введите описание задачи..."
                     value={taskDescription}
                     onChange={onInputTaskDescription}
                     disabled={saving}
-                  ></textarea>
-                </div>
-              </form>
-              <div className="pop-new-card__calendar calendar">
-                <p className="calendar__ttl subttl">Даты</p>
+                  ></SformNewArea>
+                </SformNewBlock>
+              </SpopNewCardForm>
+              <Scalendar $popNewCardCalendar>
+                <ScalendarTtl as="p">Даты</ScalendarTtl>
                 <Calendar
                   calendarMonth={currentDate}
                   classActiveDay={true}
@@ -166,43 +181,47 @@ export function PopNewCard({ onClose }) {
                   dateControl={selectedDate || ""}
                   onDateChange={onDateChange}
                 />
-              </div>
-            </div>
-            <div className="pop-new-card__categories categories">
-              <p className="categories__p subttl">Категория</p>
-              <div className="categories__themes">
-                <div
-                  className={`categories__theme _orange ${selectedCategory === "Web Design" ? "_active-category" : ""}`}
+              </Scalendar>
+            </SpopNewCardWrap>
+            <Scategories>
+              <ScategoriesP as="p">Категория</ScategoriesP>
+              <ScategoriesThemes>
+                <ScategoriesTheme
+                  $color="orange"
+                  $isActive={selectedCategory === "Web Design"}
                   onClick={() => onCategoryClick("Web Design")}
                 >
-                  <p className="_orange">Web Design</p>
-                </div>
-                <div
-                  className={`categories__theme _green ${selectedCategory === "Research" ? "_active-category" : ""}`}
+                  <p>Web Design</p>
+                </ScategoriesTheme>
+                <ScategoriesTheme
+                  $color="green"
+                  $isActive={selectedCategory === "Research"}
                   onClick={() => onCategoryClick("Research")}
                 >
-                  <p className="_green">Research</p>
-                </div>
-                <div
-                  className={`categories__theme _purple ${selectedCategory === "Copywriting" ? "_active-category" : ""}`}
+                  <p>Research</p>
+                </ScategoriesTheme>
+                <ScategoriesTheme
+                  $color="purple"
+                  $isActive={selectedCategory === "Copywriting"}
                   onClick={() => onCategoryClick("Copywriting")}
                 >
-                  <p className="_purple">Copywriting</p>
-                </div>
-              </div>
-            </div>
-            <button
+                  <p>Copywriting</p>
+                </ScategoriesTheme>
+              </ScategoriesThemes>
+            </Scategories>
+            <SformNewCreate
+              $_hover01
               onClick={onAddTask}
-              className="form-new__create _hover01"
               id="btnCreate"
               disabled={saving}
+              $saving={saving}
             >
-              {saving ? "Добавляем задачу..." : "Создать задачу"}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+              {saving ? "Добавляем " : "Создать задачу"}
+            </SformNewCreate>
+          </SpopNewCardContent>
+        </SpopNewCardBlock>
+      </SpopNewCardContainer>
+    </SpopNewCard>
   );
 }
 
