@@ -105,8 +105,19 @@ export function PopBrowse({ taskId }) {
     setIsEditing(true);
   };
 
+  const validateDescription = () => {
+    if (!taskDescription || taskDescription.trim() === "") {
+      alert("Пожалуйста, введите описание задачи");
+      return false;
+    }
+    return true;
+  };
+
   //редактирование задачи
   const handleSaveClick = async () => {
+    if (!validateDescription()) {
+      return;
+    }
     setLoading(true);
 
     try {

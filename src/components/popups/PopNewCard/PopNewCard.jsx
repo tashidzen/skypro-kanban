@@ -59,7 +59,29 @@ export function PopNewCard({ onClose }) {
     ? `Срок исполнения: `
     : "Выберите срок исполнения";
 
+  const validateFields = () => {
+    if (!taskName || taskName.trim() === "") {
+      alert("Пожалуйста, введите название задачи");
+      return false;
+    }
+
+    if (!taskDescription || taskDescription.trim() === "") {
+      alert("Пожалуйста, введите описание задачи");
+      return false;
+    }
+
+    if (!selectedDate) {
+      alert("Пожалуйста, выберите срок исполнения");
+      return false;
+    }
+
+    return true;
+  };
+
   const onAddTask = async () => {
+    if (!validateFields()) {
+      return;
+    }
     setSaving(true);
 
     try {
