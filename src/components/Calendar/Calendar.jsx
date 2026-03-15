@@ -13,8 +13,9 @@ import {
   Scalendar__p,
   SdateControl,
 } from "./Calendar.styled";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { formatDate, formatToMonthYear } from "../../formateDate";
+import { ThemeContext } from "../../context/contextAPI.js";
 
 const parseMonthYear = (monthYearString) => {
   const months = {
@@ -118,6 +119,8 @@ export function Calendar({
   dateControl,
   onDateChange,
 }) {
+  const { theme } = useContext(ThemeContext);
+
   const [currentDate, setCurrentDate] = useState(() => {
     return parseMonthYear(calendarMonth);
   });
@@ -221,6 +224,7 @@ export function Calendar({
 
             return (
               <Scalendar__cell
+                theme={theme}
                 key={day.day}
                 $_cellDay
                 $_weekend={isWeekend}
@@ -237,7 +241,7 @@ export function Calendar({
 
       <input type="hidden" id="datepick_value" value={dateControl} />
       <Scalendar__period>
-        <Scalendar__p $dateEnd>
+        <Scalendar__p theme={theme} $dateEnd>
           {deadlineTask}
           <SdateControl>{dateControl}</SdateControl>.
         </Scalendar__p>

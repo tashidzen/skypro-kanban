@@ -3,12 +3,13 @@ import { Header } from "../Header/Header.jsx";
 import { Swrapper } from "./MainApp.styled.js";
 import { Outlet } from "react-router-dom";
 import { useState, useEffect, useCallback, useContext } from "react";
-import { TaskContext } from "../../context/contextAPI.js";
+import { TaskContext, ThemeContext } from "../../context/contextAPI.js";
 
 function MainApp() {
   const [loading, setLoading] = useState(false);
   const { setTasks, getAllTasks } = useContext(TaskContext);
   const [error, setError] = useState("");
+  const { theme } = useContext(ThemeContext);
 
   const getTasks = useCallback(async () => {
     try {
@@ -34,7 +35,7 @@ function MainApp() {
   }, [getTasks]);
 
   return (
-    <Swrapper>
+    <Swrapper theme={theme}>
       <Header />
       <Main error={error} loading={loading} />
       <Outlet />

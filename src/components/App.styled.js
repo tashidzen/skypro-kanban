@@ -5,7 +5,8 @@ export const Swrapper = styled.div`
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #eaeef6;
+  background-color: ${({ theme }) =>
+    theme === "light" ? "#eaeef6" : "#151419"};
 `;
 
 export const ScontainerSignin = styled.div`
@@ -26,19 +27,22 @@ export const Smodal = styled.div`
   justify-content: center;
 
   @media screen and (max-width: 375px) {
-    background-color: #ffffff;
+    background-color: ${({ theme }) =>
+      theme === "light" ? "#ffffff" : "#20202C"};
   }
 `;
 
 export const Smodal__block = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${({ theme }) =>
+    theme === "light" ? "#ffffff" : "#20202C"};
   max-width: 368px;
   width: 100%;
   padding: 50px 60px;
   border-radius: 10px;
-  border: 0.7px solid #d4dbe5;
+  border: ${({ theme }) =>
+    theme === "light" ? "0.7px solid #d4dbe5" : "0.7px solid #94A6BE66"};
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
 
   @media screen and (max-width: 375px) {
@@ -59,6 +63,7 @@ export const Smodal__ttl = styled.div`
     line-height: 30px;
     letter-spacing: -0.6px;
     margin-bottom: 20px;
+    color: ${({ theme }) => (theme === "light" ? "#000000" : "#ffffff")};
   }
 `;
 

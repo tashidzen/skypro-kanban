@@ -5,6 +5,7 @@ export const Swrapper = styled.div`
   width: 100vw;
   min-height: 100vh;
   overflow: hidden;
-  background-color: #eaeef6;
+  background-color: ${({ theme }) =>
+    theme === "light" ? "#eaeef6" : "#151419"};
   position: relative;
 `;

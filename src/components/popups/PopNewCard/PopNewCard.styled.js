@@ -8,7 +8,7 @@ export const SformNewBlock = styled.div`
 `;
 
 export const Ssubttl = styled.span`
-  color: #000;
+  color: ${({ theme }) => (theme === "light" ? "#000" : "#fff")};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -37,6 +37,7 @@ export const SformNewArea = styled.textarea`
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
+  color: ${({ theme }) => (theme === "light" ? "#000" : "#fff")};
 
   &::-moz-placeholder {
     font-weight: 400;
@@ -74,6 +75,7 @@ export const SformNewInput = styled.input`
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
+  color: ${({ theme }) => (theme === "light" ? "#000" : "#fff")};
 
   &::-moz-placeholder {
     font-weight: 400;
@@ -119,7 +121,7 @@ export const SpopNewCardClose = styled(Link)`
 `;
 
 export const SpopNewCardTtl = styled.h3`
-  color: #000;
+  color: ${({ theme }) => (theme === "light" ? "#000" : "#fff")};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -171,12 +173,14 @@ export const SpopNewCardContainer = styled.div`
 export const SpopNewCardBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${({ theme }) =>
+    theme === "light" ? "#ffffff" : "#20202C"};
   max-width: 630px;
   width: 100%;
   padding: 40px 30px 48px;
   border-radius: 10px;
-  border: 0.7px solid #d4dbe5;
+  border: ${({ theme }) =>
+    theme === "light" ? "0.7px solid #d4dbe5" : "0.7px solid #4E5566"};
   position: relative;
 
   @media screen and (max-width: 660px) {
@@ -279,6 +283,7 @@ export const SformNewCreate = styled.button`
 
 export const ScategoriesTheme = styled.div`
   display: inline-block;
+  max-width: 115px;
   width: auto;
   height: 30px;
   padding: 8px 20px;
@@ -286,8 +291,10 @@ export const ScategoriesTheme = styled.div`
   margin-right: 7px;
   opacity: ${(props) => (props.$isActive ? 1 : 0.4)};
 
-  background-color: ${(props) => colors[props.$color]?.background};
-  color: ${(props) => colors[props.$color]?.color};
+  background-color: ${({ theme, $color }) =>
+    theme === "light" ? colors[$color]?.background : colors[$color]?.color};
+  color: ${({ theme, $color }) =>
+    theme === "light" ? colors[$color]?.color : colors[$color]?.background};
 
   p {
     font-size: 14px;

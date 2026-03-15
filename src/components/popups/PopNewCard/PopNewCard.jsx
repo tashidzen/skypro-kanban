@@ -1,6 +1,6 @@
 import { Calendar } from "../../Calendar/Calendar.jsx";
 import { useNavigate } from "react-router-dom";
-import { TaskContext } from "../../../context/contextAPI.js";
+import { TaskContext, ThemeContext } from "../../../context/contextAPI.js";
 import { useContext, useState } from "react";
 import { colors } from "../../colors.js";
 import { formatToMonthYear } from "../../../formateDate.js";
@@ -28,6 +28,7 @@ import {
 
 export function PopNewCard({ onClose }) {
   const navigate = useNavigate();
+  const { theme } = useContext(ThemeContext);
 
   const [saving, setSaving] = useState(false);
 
@@ -134,9 +135,9 @@ export function PopNewCard({ onClose }) {
   return (
     <SpopNewCard id="popNewCard">
       <SpopNewCardContainer>
-        <SpopNewCardBlock>
+        <SpopNewCardBlock theme={theme}>
           <SpopNewCardContent>
-            <SpopNewCardTtl>Создание задачи</SpopNewCardTtl>
+            <SpopNewCardTtl theme={theme}>Создание задачи</SpopNewCardTtl>
             <SpopNewCardClose to="/" onClick={handleClose}>
               &#10006;
             </SpopNewCardClose>
@@ -144,10 +145,11 @@ export function PopNewCard({ onClose }) {
             <SpopNewCardWrap>
               <SpopNewCardForm id="formNewCard" action="#">
                 <SformNewBlock>
-                  <Ssubttl as="label" htmlFor="formTitle">
+                  <Ssubttl as="label" theme={theme} htmlFor="formTitle">
                     Название задачи
                   </Ssubttl>
                   <SformNewInput
+                    theme={theme}
                     type="text"
                     name="name"
                     id="formTitle"
@@ -159,10 +161,11 @@ export function PopNewCard({ onClose }) {
                   />
                 </SformNewBlock>
                 <SformNewBlock>
-                  <Ssubttl as="label" htmlFor="textArea">
+                  <Ssubttl as="label" theme={theme} htmlFor="textArea">
                     Описание задачи
                   </Ssubttl>
                   <SformNewArea
+                    theme={theme}
                     name="text"
                     id="textArea"
                     placeholder="Введите описание задачи..."
@@ -173,7 +176,9 @@ export function PopNewCard({ onClose }) {
                 </SformNewBlock>
               </SpopNewCardForm>
               <Scalendar $popNewCardCalendar>
-                <ScalendarTtl as="p">Даты</ScalendarTtl>
+                <ScalendarTtl as="p" theme={theme}>
+                  Даты
+                </ScalendarTtl>
                 <Calendar
                   calendarMonth={currentDate}
                   classActiveDay={true}
@@ -184,9 +189,12 @@ export function PopNewCard({ onClose }) {
               </Scalendar>
             </SpopNewCardWrap>
             <Scategories>
-              <ScategoriesP as="p">Категория</ScategoriesP>
+              <ScategoriesP as="p" theme={theme}>
+                Категория
+              </ScategoriesP>
               <ScategoriesThemes>
                 <ScategoriesTheme
+                  theme={theme}
                   $color="orange"
                   $isActive={selectedCategory === "Web Design"}
                   onClick={() => onCategoryClick("Web Design")}
@@ -194,6 +202,7 @@ export function PopNewCard({ onClose }) {
                   <p>Web Design</p>
                 </ScategoriesTheme>
                 <ScategoriesTheme
+                  theme={theme}
                   $color="green"
                   $isActive={selectedCategory === "Research"}
                   onClick={() => onCategoryClick("Research")}
@@ -201,6 +210,7 @@ export function PopNewCard({ onClose }) {
                   <p>Research</p>
                 </ScategoriesTheme>
                 <ScategoriesTheme
+                  theme={theme}
                   $color="purple"
                   $isActive={selectedCategory === "Copywriting"}
                   onClick={() => onCategoryClick("Copywriting")}

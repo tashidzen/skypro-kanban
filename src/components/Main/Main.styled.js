@@ -2,7 +2,8 @@ import styled, { keyframes } from "styled-components";
 
 export const Smain = styled.main`
   width: 100%;
-  background-color: #eaeef6;
+  background-color: ${({ theme }) =>
+    theme === "light" ? "#eaeef6" : "#151419"};
 `;
 
 export const Scontainer = styled.div`
@@ -53,7 +54,9 @@ export const Smain__loading = styled.p`
   margin-top: 10%;
   text-align: center;
   font-size: 20px;
-  background-color: #eaeef6;
+  background-color: ${({ theme }) =>
+    theme === "light" ? "#eaeef6" : "#151419"};
+  color: ${({ theme }) => (theme === "light" ? "#151419" : "#eaeef6")};
 
   &::after {
     content: "⏳";

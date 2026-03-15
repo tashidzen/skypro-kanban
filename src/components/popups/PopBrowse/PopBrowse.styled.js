@@ -36,12 +36,13 @@ export const SpopBrowseContainer = styled.div`
 export const SpopBrowseBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => (theme === "light" ? "#fff" : "#20202C")};
   max-width: 630px;
   width: 100%;
   padding: 40px 30px 38px;
   border-radius: 10px;
-  border: 0.7px solid #d4dbe5;
+  border: ${({ theme }) =>
+    theme === "light" ? "0.7px solid #d4dbe5" : "0.7px solid #4E5566"};
   position: relative;
 
   @media screen and (max-width: 660px) {
@@ -90,7 +91,7 @@ export const SThemeDown = styled.div`
 `;
 
 export const SpopBrowseTtl = styled.h3`
-  color: #000;
+  color: ${({ theme }) => (theme === "light" ? "#000" : "#fff")};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -101,7 +102,7 @@ export const SpopBrowseStatus = styled.div`
 `;
 
 export const Ssubttl = styled.span`
-  color: #000;
+  color: ${({ theme }) => (theme === "light" ? "#000" : "#fff")};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -136,10 +137,10 @@ export const SstatusTheme = styled.div`
     props.$isGray &&
     `
     background: #94a6be;
-    color: #ffffff !important;
+    color: ${props.theme === "light" ? "#ffffff" : "#151419"} !important;
     
     p {
-      color: #ffffff !important;
+      color: ${props.theme === "light" ? "#ffffff" : "#151419"} !important;
     }
      `}
 
@@ -181,14 +182,18 @@ export const SformBrowseArea = styled.textarea`
   width: 100%;
   outline: none;
   padding: 14px;
-  background: #eaeef6;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  background: ${({ theme }) => (theme === "light" ? "#eaeef6" : "#151419")};
+  border: ${({ theme }) =>
+    theme === "light"
+      ? "0.7px solid rgba(148, 166, 190, 0.4)"
+      : "0.7px solid #151419"};
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
   margin-top: 14px;
   height: 200px;
+  color: ${({ theme }) => (theme === "light" ? "#000000" : "#8B94A3")};
 
   &::-moz-placeholder,
   &::placeholder {
@@ -325,6 +330,7 @@ export const SpopBrowseLoading = styled.div`
   align-items: center;
   justify-content: center;
   gap: 8px;
+  color: ${({ theme }) => (theme === "light" ? "#000000" : "#fff")};
 
   &::after {
     content: "⏳";
@@ -336,7 +342,8 @@ export const SpopBrowseLoading = styled.div`
 `;
 
 export const SclassTypeCard = styled.p`
-  color: ${(props) => props.color};
+  color: ${({ theme, $lightText, $darkText }) =>
+    theme === "light" ? $lightText : $darkText};
 `;
 
 export const Scategories__theme = styled.div`
@@ -357,5 +364,6 @@ export const Scategories__theme = styled.div`
 
   display: block;
 
-  background: ${(props) => props.color};
+  background: ${({ theme, $lightBg, $darkBg }) =>
+    theme === "light" ? $lightBg : $darkBg};
 `;

@@ -43,3 +43,7 @@ export const Scards__item = styled.div`
   animation-duration: 500ms;
   animation-timing-function: linear;
 `;
+
+export const Scards__noTasks = styled.p`
+  color: ${({ theme }) => (theme === "light" ? "#000" : "#FFFFFF")};
+`;

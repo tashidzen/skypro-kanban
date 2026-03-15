@@ -8,10 +8,11 @@ import {
   Smain__loading,
   S_error,
 } from "./Main.styled.js";
-import { TaskContext } from "../../context/contextAPI.js";
+import { TaskContext, ThemeContext } from "../../context/contextAPI.js";
 
 export function Main({ error, loading }) {
   const { tasks } = useContext(TaskContext);
+  const { theme } = useContext(ThemeContext);
 
   const cardListWithoutStatus = tasks.filter(
     (card) => card.status === "Без статуса",
@@ -28,7 +29,7 @@ export function Main({ error, loading }) {
   const cardListReady = tasks.filter((card) => card.status === "Готово");
 
   return (
-    <Smain>
+    <Smain theme={theme}>
       {loading ? (
         <Scontainer>
           <Smain__block>
@@ -66,7 +67,7 @@ export function Main({ error, loading }) {
           </Smain__block>
         </Scontainer>
       ) : (
-        <Smain__loading>Данные загружаются...</Smain__loading>
+        <Smain__loading theme={theme}>Данные загружаются...</Smain__loading>
       )}
     </Smain>
   );

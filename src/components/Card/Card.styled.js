@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const Scards__card = styled.div`
   width: 220px;
   height: 130px;
-  background-color: #ffffff;
+  background-color: ${({ theme }) =>
+    theme === "light" ? "#ffffff" : "#20202C"};
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -14,7 +15,8 @@ export const Scards__card = styled.div`
   @media screen and (max-width: 1200px) {
     width: 220px;
     height: 130px;
-    background-color: #ffffff;
+    background-color: ${({ theme }) =>
+      theme === "light" ? "#ffffff" : "#20202C"};
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -63,7 +65,7 @@ export const Scard__title = styled.h3`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: #000000;
+  color: ${({ theme }) => (theme === "light" ? "#000000" : "#FFFFFF")};
   margin-bottom: 10px;
 `;
 
@@ -90,7 +92,8 @@ export const Scard__theme = styled.div`
   height: 20px;
   padding: 5px 14px;
   border-radius: 18px;
-  background-color: ${({ $background_color }) => $background_color};
+  background-color: ${({ theme, $lightBg, $darkBg }) =>
+    theme === "light" ? $lightBg : $darkBg};
 
   p {
     font-size: 10px;
@@ -100,5 +103,6 @@ export const Scard__theme = styled.div`
 `;
 
 export const Stopic__color = styled.p`
-  color: ${({ $color }) => $color};
+  color: ${({ theme, $lightText, $darkText }) =>
+    theme === "light" ? $lightText : $darkText};
 `;

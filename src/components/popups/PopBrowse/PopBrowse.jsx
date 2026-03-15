@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Calendar } from "../../Calendar/Calendar.jsx";
-import { TaskContext } from "../../../context/contextAPI.js";
+import { TaskContext, ThemeContext } from "../../../context/contextAPI.js";
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatDate, formatToMonthYear } from "../../../formateDate.js";
@@ -35,6 +35,7 @@ import {
 
 export function PopBrowse({ taskId }) {
   const { tasks, delTask, updateTask } = useContext(TaskContext);
+  const { theme } = useContext(ThemeContext);
   const task = tasks.find((t) => String(t._id) === taskId);
   const navigate = useNavigate();
 
@@ -142,21 +143,32 @@ export function PopBrowse({ taskId }) {
   return (
     <SpopBrowse id="popBrowse">
       <SpopBrowseContainer>
-        <SpopBrowseBlock>
+        <SpopBrowseBlock theme={theme}>
           <SpopBrowseContent>
             <SpopBrowseTopBlock>
-              <SpopBrowseTtl>{task?.title}</SpopBrowseTtl>
-              <Scategories__theme color={task?.classTypeColor}>
-                <SclassTypeCard color={task?.classTypeCard}>
+              <SpopBrowseTtl theme={theme}>{task?.title}</SpopBrowseTtl>
+              <Scategories__theme
+                theme={theme}
+                $lightBg={task?.classTypeColor}
+                $darkBg={task?.classTypeCard}
+              >
+                <SclassTypeCard
+                  theme={theme}
+                  $lightText={task?.classTypeCard}
+                  $darkText={task?.classTypeColor}
+                >
                   {task?.topic}
                 </SclassTypeCard>
               </Scategories__theme>
             </SpopBrowseTopBlock>
             <SpopBrowseStatus>
-              <SstatusP as="p">Статус</SstatusP>
+              <SstatusP as="p" theme={theme}>
+                Статус
+              </SstatusP>
               <SstatusThemes>
                 {statuses.map((statusName) => (
                   <SstatusTheme
+                    theme={theme}
                     key={statusName}
                     {...getStatusClass(statusName)}
                     onClick={() => onStatusClick(statusName)}
@@ -170,10 +182,11 @@ export function PopBrowse({ taskId }) {
             <SpopBrowseWrap>
               <SpopBrowseForm id="formBrowseCard" action="#">
                 <SformBrowseBlock>
-                  <Ssubttl as="label" htmlFor="textArea01">
+                  <Ssubttl as="label" theme={theme} htmlFor="textArea01">
                     Описание задачи
                   </Ssubttl>
                   <SformBrowseArea
+                    theme={theme}
                     name="text"
                     id="textArea01"
                     readOnly={!isEditing}
@@ -239,10 +252,14 @@ export function PopBrowse({ taskId }) {
             )}
 
             {loading && (
-              <SpopBrowseLoading>Сохраняем изменения...</SpopBrowseLoading>
+              <SpopBrowseLoading theme={theme}>
+                Сохраняем изменения...
+              </SpopBrowseLoading>
             )}
             {deleting && (
-              <SpopBrowseLoading>Удаляем задачу...</SpopBrowseLoading>
+              <SpopBrowseLoading theme={theme}>
+                Удаляем задачу...
+              </SpopBrowseLoading>
             )}
           </SpopBrowseContent>
         </SpopBrowseBlock>

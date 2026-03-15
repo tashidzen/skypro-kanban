@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const Sheader = styled.header`
   width: 100%;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${({ theme }) =>
+    theme === "light" ? "#ffffff" : "#20202C"};
 `;
 
 export const Sheader__block = styled.div`
@@ -25,8 +26,6 @@ export const Sheader__logo = styled.div`
   }
 
   ${({ $show }) => $show && `display: block;`}
-  ${({ $light }) => $light && `display: block;`}
-  ${({ $dark }) => $dark && `display: none;`}
 `;
 
 export const Sheader__nav = styled.nav`
@@ -78,7 +77,7 @@ export const Sheader__user = styled.a`
   justify-content: center;
   font-size: 14px;
   line-height: 20px;
-  color: #565eef;
+  color: ${({ theme }) => (theme === "light" ? "#565eef" : "#FFFFFF")};
 
   &::after {
     content: "";
@@ -86,18 +85,22 @@ export const Sheader__user = styled.a`
     width: 6px;
     height: 6px;
     border-radius: 1px;
-    border-left: 1.9px solid #565eef;
-    border-bottom: 1.9px solid #565eef;
+    border-left: ${({ theme }) =>
+      theme === "light" ? "1.9px solid #565eef" : "1.9px solid #FFFFFF"};
+    border-bottom: ${({ theme }) =>
+      theme === "light" ? "1.9px solid #565eef" : "1.9px solid #FFFFFF"};
     transform: rotate(-45deg);
     margin: -6px 0 0 5px;
     padding: 0;
   }
 
   &:hover {
-    color: #33399b;
+    color: ${({ theme }) => (theme === "light" ? "#33399b" : "#565eef")};
     &::after {
-      border-left-color: #33399b;
-      border-bottom-color: #33399b;
+      border-left-color: ${({ theme }) =>
+        theme === "light" ? "#33399b" : "#565eef"};
+      border-bottom-color: ${({ theme }) =>
+        theme === "light" ? "#33399b" : "#565eef"};
     }
   }
 `;
