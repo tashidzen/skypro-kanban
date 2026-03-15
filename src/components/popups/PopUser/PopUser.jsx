@@ -11,10 +11,10 @@ import { useContext } from "react";
 
 export function PopUser() {
   const { user, logout } = useContext(AuthContext);
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const onToggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+    toggleTheme();
   };
 
   return (

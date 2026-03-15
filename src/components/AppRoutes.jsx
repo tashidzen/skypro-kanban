@@ -15,7 +15,7 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route element={<PrivateRoute isAuth={isAuth} />}>
+      <Route element={<PrivateRoute />}>
         <Route path="/" element={<AppPage />}>
           <Route path="card/add" element={<AddNewTaskPage />} />
           <Route path="card/:id" element={<CardViewAndEditPage />} />

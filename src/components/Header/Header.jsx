@@ -28,9 +28,9 @@ export function Header() {
           <Sheader__logo theme={theme} $show>
             <a href="" target="_self">
               {theme === "light" ? (
-                <img src={"images/logo.png"} alt="logo" />
+                <img src={"/images/logo.png"} alt="logo" />
               ) : (
-                <img src={"images/logo_dark.png"} alt="logo" />
+                <img src={"/images/logo_dark.png"} alt="logo" />
               )}
             </a>
           </Sheader__logo>
