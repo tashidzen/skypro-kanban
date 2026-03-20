@@ -34,10 +34,11 @@ import {
 } from "./PopBrowse.styled.js";
 
 export function PopBrowse({ taskId }) {
-  const { tasks, delTask, updateTask } = useContext(TaskContext);
+  const { tasks, delTask, updateTask, getAllTasks } = useContext(TaskContext);
   const { theme } = useContext(ThemeContext);
   const task = tasks.find((t) => String(t._id) === taskId);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -59,10 +60,35 @@ export function PopBrowse({ taskId }) {
   ];
 
   useEffect(() => {
-    if (!task) {
+    const loadTasks = async () => {
+      setIsLoading(true);
+      try {
+        if (tasks.length === 0) {
+          await getAllTasks();
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadTasks();
+  }, [tasks.length, getAllTasks]);
+
+  useEffect(() => {
+    if (!task && !isLoading) {
       navigate("/");
     }
-  }, [task, navigate]);
+  }, [task, isLoading, navigate]);
+
+  // Обновляем локальное состояние когда task найден
+  useEffect(() => {
+    if (task) {
+      setTaskName(task.title || "");
+      setTaskDescription(task.description || "");
+      setTaskStatus(task.status || "Без статуса");
+      setTaskDate(task.date || Date.now());
+    }
+  }, [task]);
 
   const onInputTaskDescription = (e) => {
     setTaskDescription(e.target.value);
@@ -151,6 +177,22 @@ export function PopBrowse({ taskId }) {
     navigate("/");
   };
 
+  if (isLoading) {
+    return (
+      <SpopBrowse id="popBrowse">
+        <SpopBrowseContainer>
+          <SpopBrowseBlock theme={theme}>
+            <SpopBrowseContent>
+              <SpopBrowseLoading theme={theme}>
+                Загрузка задачи...
+              </SpopBrowseLoading>
+            </SpopBrowseContent>
+          </SpopBrowseBlock>
+        </SpopBrowseContainer>
+      </SpopBrowse>
+    );
+  }
+
   return (
     <SpopBrowse id="popBrowse">
       <SpopBrowseContainer>
@@ -197,6 +239,7 @@ export function PopBrowse({ taskId }) {
                     Описание задачи
                   </Ssubttl>
                   <SformBrowseArea
+                    $isEditing={isEditing}
                     theme={theme}
                     name="text"
                     id="textArea01"

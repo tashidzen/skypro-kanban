@@ -182,11 +182,22 @@ export const SformBrowseArea = styled.textarea`
   width: 100%;
   outline: none;
   padding: 14px;
-  background: ${({ theme }) => (theme === "light" ? "#eaeef6" : "#151419")};
-  border: ${({ theme }) =>
-    theme === "light"
+  background: ${({ theme, $isEditing }) => {
+    if ($isEditing) {
+      return theme === "light" ? "#ffffff" : "#20202C";
+    }
+    return theme === "light" ? "#eaeef6" : "#151419";
+  }};
+  border: ${({ theme, $isEditing }) => {
+    if ($isEditing) {
+      return theme === "light"
+        ? "0.7px solid #94A6BE66"
+        : "0.7px solid #94A6BE66";
+    }
+    return theme === "light"
       ? "0.7px solid rgba(148, 166, 190, 0.4)"
-      : "0.7px solid #151419"};
+      : "0.7px solid #151419";
+  }};
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;

@@ -33,10 +33,18 @@ export const Smain__block = styled.div`
 export const Smain__content = styled.div`
   width: 100%;
   display: flex;
+  justify-content: center;
 
   @media screen and (max-width: 1200px) {
     display: block;
   }
+`;
+
+export const SmainNoTasksMessage = styled.p`
+  text-align: center;
+  padding: 40px;
+  font-size: 20px;
+  color: ${({ theme }) => (theme === "dark" ? "#ffffff" : "#000000")};
 `;
 
 const loadingAnimation = keyframes`
