@@ -14,17 +14,11 @@ export function Main_column({ nameColumn, cards = [], isColumn = false }) {
         <p>{nameColumn}</p>
       </Scolumn__title>
       <Scards>
-        {cards.length === 0 ? (
-          <Scards__item>
-            <p>Нет задач</p>
+        {cards.map((cardParameters) => (
+          <Scards__item key={cardParameters.id || cardParameters._id}>
+            <Card {...cardParameters} />
           </Scards__item>
-        ) : (
-          cards.map((cardParameters) => (
-            <Scards__item key={cardParameters.id}>
-              <Card {...cardParameters} />
-            </Scards__item>
-          ))
-        )}
+        ))}
       </Scards>
     </Smain__column>
   );

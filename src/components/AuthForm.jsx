@@ -1,5 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import "../App.css";
 import BaseButton from "./Button";
 import BaseInput from "./Input";
 import {
@@ -13,11 +12,13 @@ import {
 } from "./App.styled.js";
 import { signUp } from "../services/auth.js";
 import { useContext, useState } from "react";
-import { AuthContext } from "../context/contextAPI";
+import { AuthContext, ThemeContext } from "../context/contextAPI";
+import { toast } from "react-toastify";
 
 const AuthForm = ({ isSignUp, setIsAuth }) => {
   const navigate = useNavigate();
   const { logIn } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
 
   // состояние полей
   const [formData, setFormData] = useState({
@@ -89,6 +90,7 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
       if (data) {
         console.log("Успех! Устанавливаем авторизацию");
         setIsAuth(true);
+        toast.success(`Добро пожаловать, ${data.name}!`);
         localStorage.setItem("userInfo", JSON.stringify(data));
         navigate("/");
       } else {
@@ -101,16 +103,17 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
   };
 
   return (
-    <Swrapper>
+    <Swrapper theme={theme}>
       <ScontainerSignin>
-        <Smodal>
-          <Smodal__block>
-            <Smodal__ttl>
+        <Smodal theme={theme}>
+          <Smodal__block theme={theme}>
+            <Smodal__ttl theme={theme}>
               <h2>{isSignUp ? "Регистрация" : "Вход"}</h2>
             </Smodal__ttl>
             <Smodal__formLogin id="formLogIn" onSubmit={handleSubmit}>
               {isSignUp && (
                 <BaseInput
+                  theme={theme}
                   error={errors.name}
                   tag="input"
                   type="text"
@@ -122,6 +125,7 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
                 />
               )}
               <BaseInput
+                theme={theme}
                 error={errors.login}
                 tag="input"
                 type="text"
@@ -132,6 +136,7 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
                 onChange={handleChange}
               />
               <BaseInput
+                theme={theme}
                 error={errors.password}
                 tag="input"
                 type="password"
@@ -148,13 +153,13 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
               />
 
               {!isSignUp && (
-                <Smodal__formGroup>
+                <Smodal__formGroup theme={theme}>
                   <p>Нужно зарегистрироваться?</p>
                   <Link to="/register">Регистрируйтесь здесь</Link>
                 </Smodal__formGroup>
               )}
               {isSignUp && (
-                <Smodal__formGroup>
+                <Smodal__formGroup theme={theme}>
                   <p>
                     Уже есть аккаунт? <Link to="/login">Войдите здесь</Link>
                   </p>

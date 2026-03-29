@@ -26,12 +26,13 @@ export const SpopExit__container = styled.div`
 export const SpopExit__block = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => (theme === "light" ? "#fff" : "#20202C")};
   max-width: 370px;
   width: 100%;
   padding: 50px 60px;
   border-radius: 10px;
-  border: 0.7px solid #d4dbe5;
+  border: ${({ theme }) =>
+    theme === "light" ? "0.7px solid #d4dbe5" : "0.7px solid #4E5566"};
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
 
   @media only screen and (max-width: 375px) {
@@ -47,6 +48,7 @@ export const SpopExit__ttl = styled.div`
     line-height: 30px;
     letter-spacing: -0.4px;
     margin-bottom: 20px;
+    color: ${({ theme }) => (theme === "light" ? "#000000" : "#FFFFFF")};
   }
 `;
 
@@ -87,8 +89,8 @@ export const SpopExit__exitYes = styled.button`
     margin-bottom: 10px;
   }
 
-  ${({ _hover01 }) =>
-    _hover01 &&
+  ${({ $_hover01 }) =>
+    $_hover01 &&
     `
     &:hover {
       background-color: #33399b;
@@ -101,7 +103,8 @@ export const SpopExit__exitNo = styled.button`
   height: 30px;
   background-color: transparent;
   border-radius: 4px;
-  border: 0.7px solid var(--palette-navy-60, #565eef);
+  border: ${({ theme }) =>
+    theme === "light" ? "0.7px solid #565eef" : "0.7px solid #FFFFFF"};
   outline: none;
   display: flex;
   align-items: center;
@@ -110,18 +113,19 @@ export const SpopExit__exitNo = styled.button`
   line-height: 21px;
   font-weight: 500;
   letter-spacing: -0.14px;
-  color: #565eef;
+  color: ${({ theme }) => (theme === "light" ? "#565eef" : "#FFFFFF")};
 
   @media only screen and (max-width: 375px) {
     width: 100%;
     height: 40px;
   }
 
-  ${({ _hover03 }) =>
-    _hover03 &&
+  ${({ $_hover03 }) =>
+    $_hover03 &&
     `
     &:hover {
       background-color: #33399b;
+      border: #33399b;
       color: #FFFFFF;
       
       a {

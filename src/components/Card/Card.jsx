@@ -10,6 +10,8 @@ import {
 } from "./Card.styled.js";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../formateDate.js";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/contextAPI.js";
 
 export function Card({
   _id,
@@ -19,11 +21,23 @@ export function Card({
   title,
   date,
 }) {
+  const { theme } = useContext(ThemeContext);
+
   return (
-    <Scards__card>
+    <Scards__card theme={theme}>
       <Scard__group>
-        <Scard__theme $background_color={classTypeColor}>
-          <Stopic__color $color={classTypeCard}>{topic}</Stopic__color>
+        <Scard__theme
+          $lightBg={classTypeColor}
+          $darkBg={classTypeCard}
+          theme={theme}
+        >
+          <Stopic__color
+            $lightText={classTypeCard}
+            $darkText={classTypeColor}
+            theme={theme}
+          >
+            {topic}
+          </Stopic__color>
         </Scard__theme>
         <Link to={`/card/${_id}`} target="_self">
           <Scard__btn>
@@ -35,7 +49,7 @@ export function Card({
       </Scard__group>
       <Scard__content>
         <a href="" target="_blank">
-          <Scard__title>{title}</Scard__title>
+          <Scard__title theme={theme}>{title}</Scard__title>
         </a>
         <Scard__date>
           <svg

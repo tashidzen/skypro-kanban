@@ -72,7 +72,7 @@ export const Scalendar__dayName = styled.div`
 
 export const Scalendar__cells = styled.div`
   width: 182px;
-  height: 126px;
+  min-height: 126px;
   display: flex;
   flex-wrap: wrap;
 
@@ -108,20 +108,20 @@ export const Scalendar__cell = styled.div`
 
   ${({ $_otherMonth }) => $_otherMonth && `opacity: 0;`};
 
-  ${({ $_cellDay }) =>
-    $_cellDay &&
+  ${(props) =>
+    props.$_cellDay &&
     `&:hover {
      color: #94A6BE;
-     background-color: #EAEEF6;
+     background-color: ${props.theme === "light" ? "#EAEEF6" : "#151419"};
 }`};
 
   ${({ $_weekend }) => $_weekend && ``};
 
-  ${({ $_activeDay }) =>
-    $_activeDay &&
+  ${(props) =>
+    props.$_activeDay &&
     `
     background-color: #94A6BE;
-    color: #FFFFFF;
+    color: ${props.theme === "light" ? "#ffffff" : "#151419"};
   `};
 
   ${({ $_current }) => $_current && `font-weight: 700;`}
@@ -141,7 +141,7 @@ export const Scalendar__p = styled.p`
   line-height: 1;
 
   span {
-    color: #000000;
+    color: ${({ theme }) => (theme === "light" ? "#000" : "#fff")};
   }
 
   @media screen and (max-width: 660px) {

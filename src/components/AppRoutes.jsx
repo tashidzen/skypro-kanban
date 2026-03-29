@@ -1,4 +1,3 @@
-import "../App.css";
 import { Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import AppPage from "../pages/MainApp";
@@ -16,7 +15,7 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route element={<PrivateRoute isAuth={isAuth} />}>
+      <Route element={<PrivateRoute />}>
         <Route path="/" element={<AppPage />}>
           <Route path="card/add" element={<AddNewTaskPage />} />
           <Route path="card/:id" element={<CardViewAndEditPage />} />
@@ -25,7 +24,7 @@ function AppRoutes() {
         </Route>
       </Route>
       <Route path="/login" element={<SignInPage setIsAuth={setIsAuth} />} />
-      <Route path="/register" element={<SignUpPage setIsAuth={setIsAuth}/>} />
+      <Route path="/register" element={<SignUpPage setIsAuth={setIsAuth} />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

@@ -8,6 +8,8 @@ const StyledInput = styled.input`
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   outline: none;
   padding: 10px 8px;
+  background-color: ${({ theme }) => (theme === "light" ? "#fff" : "#20202C")};
+  color: ${({ theme }) => (theme === "light" ? "#000" : "#fff")};
 
   &::-moz-placeholder {
     font-family: "Roboto", sans-serif;
@@ -34,7 +36,7 @@ const StyledTextarea = styled.textarea`
   width: 100%;
   outline: none;
   padding: 10px;
-  background-color: white;
+  background-color: ${({ theme }) => (theme === "light" ? "#fff" : "#20202C")};
   border-radius: 12px;
   border: none;
   font-size: 16px;
@@ -54,6 +56,7 @@ const BaseInput = ({
   type = "text",
   error = false,
   onChange,
+  theme,
 }) => {
   // Выбираем компонент в зависимости от тега
   const Component = tag === "textarea" ? StyledTextarea : StyledInput;
@@ -66,6 +69,7 @@ const BaseInput = ({
       placeholder={placeholder}
       $error={error}
       onChange={onChange}
+      theme={theme}
     />
   );
 };
